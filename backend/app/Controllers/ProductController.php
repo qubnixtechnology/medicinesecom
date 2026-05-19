@@ -84,12 +84,17 @@ class ProductController {
     }
     
     public function show($id) {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = ?");
-        $stmt->execute([$id]);
+        $stmt = $this->db->prepare("
+            SELECT p.*, c.name as category_name 
+            FROM products p
+            LEFT JOIN categories c ON p.category_slug = c.slug
+            WHERE p.id = ? OR p.slug = ?
+        ");
+        $stmt->execute([$id, $id]);
         $product = $stmt->fetch();
         
         if (!$product) {
-            Response::notFound('Product not found');
+            Response::error('Product not found', 404);
         }
         
         Response::success($product);

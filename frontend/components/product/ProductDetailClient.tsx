@@ -171,6 +171,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useCartStore } from '@/store/cartStore';
+import { useWishlistStore } from '@/store/wishlistStore';
 import ProductGrid from '@/components/product/ProductGrid';
 import { Shield, Truck, Clock, Check, Minus, Plus, Heart, Share2 } from 'lucide-react';
 import { Product } from '@/types';
@@ -184,10 +185,18 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const addItem = useCartStore((state) => state.addItem);
+  const { toggleItem, isInWishlist } = useWishlistStore();
+  
+  const wishlisted = isInWishlist ? isInWishlist(Number(product.id)) : false;
   
   // ✅ CORRECT WAY - Call addItem with product and quantity
   const handleAddToCart = () => {
     addItem(product, quantity);
+  };
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toggleItem(product);
   };
   
   // Get image URL with fallback
@@ -301,8 +310,21 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
             >
               Add to Cart
             </button>
-            <button className="p-3 border rounded-lg hover:bg-gray-50 transition">
-              <Heart size={20} className="text-gray-600" />
+            <button 
+              onClick={handleWishlistToggle}
+              title={wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
+              className={`p-3 border rounded-lg transition-colors ${
+                wishlisted 
+                  ? 'bg-red-50 border-red-200' 
+                  : 'hover:bg-gray-50'
+              }`}
+            >
+              <Heart 
+                size={20} 
+                fill={wishlisted ? '#ef4444' : 'none'}
+                stroke={wishlisted ? '#ef4444' : '#4b5563'}
+                className={wishlisted ? 'text-red-500' : 'text-gray-600 hover:text-red-500 transition-colors'} 
+              />
             </button>
           </div>
           
@@ -321,46 +343,54 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         </div>
       </div>
       
-      {/* Rest of your component (benefits, related products, etc.) */}
-      <div className="border-t pt-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Key Benefits</h2>
-            <ul className="space-y-2">
-              {product.benefits && product.benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <Check size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-600">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="font-semibold text-gray-800 mb-3">Product Information</h3>
-            <div className="space-y-3">
-              {product.composition && (
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">Composition:</p>
-                  <p className="text-sm text-gray-700">{product.composition}</p>
+      {/* Product Details Tabs (Conditionally Rendered) */}
+      {(product.benefits?.length > 0 || product.composition || product.dosage || product.volume) && (
+        <div className="border-t pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Key Benefits */}
+            {product.benefits && product.benefits.length > 0 && (
+              <div>
+                <h2 className="text-xl font-bold text-gray-800 mb-4">Key Benefits</h2>
+                <ul className="space-y-2">
+                  {product.benefits.map((benefit, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <Check size={18} className="text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-600">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {/* Product Information */}
+            {(product.composition || product.dosage || product.volume) && (
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="font-semibold text-gray-800 mb-3">Product Information</h3>
+                <div className="space-y-3">
+                  {product.composition && (
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">Composition:</p>
+                      <p className="text-sm text-gray-700">{product.composition}</p>
+                    </div>
+                  )}
+                  {product.dosage && (
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">Dosage:</p>
+                      <p className="text-sm text-gray-700">{product.dosage}</p>
+                    </div>
+                  )}
+                  {product.volume && (
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">Pack Size:</p>
+                      <p className="text-sm text-gray-700">{product.volume}</p>
+                    </div>
+                  )}
                 </div>
-              )}
-              {product.dosage && (
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">Dosage:</p>
-                  <p className="text-sm text-gray-700">{product.dosage}</p>
-                </div>
-              )}
-              {product.volume && (
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">Pack Size:</p>
-                  <p className="text-sm text-gray-700">{product.volume}</p>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      )}
       
       {/* Related Products */}
       {relatedProducts && relatedProducts.length > 0 && (

@@ -704,14 +704,21 @@ export default function ProductsPage() {
             let productImages = [];
             if (p.images) {
               try {
-                productImages = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
+                let parsedImages = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
+                if (Array.isArray(parsedImages)) {
+                  productImages = parsedImages.map((img: string) => {
+                    if (img.startsWith('http')) return img;
+                    if (img.startsWith('/')) return `http://localhost:8080${img}`;
+                    return `http://localhost:8080/${img}`;
+                  });
+                }
               } catch(e) {
                 productImages = [];
               }
             }
             
             if (!productImages.length) {
-              productImages = [`https://placehold.co/400x400/2563eb/white?text=${encodeURIComponent(p.name.substring(0, 15))}`];
+              productImages = ['/images/placeholder.jpg'];
             }
 
     //       const adaptedProducts = data.data.products.map((p: any) => {

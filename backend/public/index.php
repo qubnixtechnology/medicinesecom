@@ -68,6 +68,10 @@ elseif ($path == 'api/products' && $request_method == 'GET') {
     $controller = new App\Controllers\ProductController();
     $controller->index();
 } 
+elseif (preg_match('/^api\/products\/([a-zA-Z0-9_-]+)$/', $path, $matches) && $request_method == 'GET') {
+    $controller = new App\Controllers\ProductController();
+    $controller->show($matches[1]);
+}
 elseif ($path == 'api/categories' && $request_method == 'GET') {
     $controller = new App\Controllers\CategoryController();
     $controller->index();
