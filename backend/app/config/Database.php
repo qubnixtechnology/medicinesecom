@@ -7,7 +7,7 @@ use PDOException;
 class Database {
     private static $instance = null;
     private $connection;
-    
+      
     private function __construct() {
         $host = 'localhost';
         $port = 3307;
@@ -26,7 +26,7 @@ class Database {
                 ]
             );
         } catch (PDOException $e) {
-            die(json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]));
+            die(json_encode(['error' => 'Database connection failed: ' . $e->getMessage( )]));
         }
     }
     

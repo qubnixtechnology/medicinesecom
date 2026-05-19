@@ -713,6 +713,32 @@ export default function ProductsPage() {
             if (!productImages.length) {
               productImages = [`https://placehold.co/400x400/2563eb/white?text=${encodeURIComponent(p.name.substring(0, 15))}`];
             }
+
+    //       const adaptedProducts = data.data.products.map((p: any) => {
+    // let productImages = [];
+    // if (p.images) {
+    //     try {
+    //         let images = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
+    //         // Make sure image URLs are absolute
+    //         productImages = images.map((img: string) => {
+    //             if (img.startsWith('http')) {
+    //                 return img;
+    //             } else if (img.startsWith('/uploads/')) {
+    //                 return 'http://localhost:8080' + img;
+    //             } else if (img.startsWith('/images/')) {
+    //                 return 'http://localhost:8080' + img;
+    //             } else {
+    //                 return 'http://localhost:8080/serve-image.php?file=' + encodeURIComponent(img);
+    //             }
+    //         });
+    //     } catch(e) {
+    //         productImages = [];
+    //     }
+    // }
+    
+    // if (!productImages.length) {
+    //     productImages = ['http://localhost:8080/images/medicines/placeholder.jpg'];
+    // }
             
             return {
               id: Number(p.id),
