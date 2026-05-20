@@ -94,8 +94,8 @@ interface WishlistStore {
   items: Product[];
   toggleItem: (product: Product) => void;
   addItem: (product: Product) => void;
-  removeItem: (id: number) => void;
-  isInWishlist: (id: number) => boolean;
+  removeItem: (id: number | string) => void;
+  isInWishlist: (id: number | string) => boolean;
   getTotalItems: () => number;
   clearWishlist: () => void;
 }

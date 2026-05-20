@@ -18,9 +18,11 @@ const nextConfig = {
     domains: ['localhost', 'placehold.co'],
     unoptimized: true,
   },
-  // Disable static export for dynamic routes
-  output: undefined,
-  trailingSlash: false,
+  output: 'export',
+  trailingSlash: true,
+  turbopack: {
+    rules: {},
+  },
 }
 
 module.exports = nextConfig

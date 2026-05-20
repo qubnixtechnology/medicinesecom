@@ -161,7 +161,7 @@ export default function WishlistPage() {
     // removeItem(product.id);
   };
   
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: number | string) => {
     removeItem(id);
   };
   

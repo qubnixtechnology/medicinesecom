@@ -894,7 +894,7 @@ export default function Navbar() {
 
   // Fetch categories from API
   useEffect(() => {
-    fetch('http://localhost:8080/api/categories')
+    fetch('/api/categories')
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -1016,7 +1016,7 @@ export default function Navbar() {
                   👋 {user.name?.split(' ')[0]}
                 </span>
                 {user.role === 'admin' && (
-                  <a href="http://localhost:8080/admin/" target="_blank" className="text-purple-600 hover:text-purple-700 text-sm font-medium">
+                  <a href="/admin/" target="_blank" className="text-purple-600 hover:text-purple-700 text-sm font-medium">
                     Admin
                   </a>
                 )}

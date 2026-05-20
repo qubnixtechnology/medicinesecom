@@ -240,8 +240,8 @@ import { CartItem, Product } from '@/types';
 interface CartStore {
   items: CartItem[];
   addItem: (product: Product, quantity?: number) => void;
-  removeItem: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeItem: (id: number | string) => void;
+  updateQuantity: (id: number | string, quantity: number) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
   getTotalItems: () => number;
@@ -320,7 +320,7 @@ export const useCartStore = create<CartStore>()(
         };
         
         try {
-          const response = await fetch('http://localhost:8080/api/orders', {
+          const response = await fetch('/api/orders', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

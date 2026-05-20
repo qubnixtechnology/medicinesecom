@@ -170,7 +170,7 @@ export default function AccountPage() {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: loginEmail, password: loginPassword })
@@ -215,7 +215,7 @@ export default function AccountPage() {
   //   }
     
   //   try {
-  //     const response = await fetch('http://localhost:8080/api/auth/register', {
+  //     const response = await fetch('/api/auth/register', {
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json' },
   //       body: JSON.stringify({
@@ -267,7 +267,7 @@ export default function AccountPage() {
   }
   
   try {
-    const response = await fetch('http://localhost:8080/api/auth/register', {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -362,7 +362,7 @@ export default function AccountPage() {
         
         {/* Login Form */}
         {isLogin ? (
-          <form onSubmit={handleLogin} className="bg-white rounded-lg shadow-md p-6">
+          <form onSubmit={handleLogin} action="#" className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <label className="block text-gray-700 font-semibold mb-2">Email Address *</label>
               <input
@@ -401,7 +401,7 @@ export default function AccountPage() {
           </form>
         ) : (
           // Register Form
-          <form onSubmit={handleRegister} className="bg-white rounded-lg shadow-md p-6">
+          <form onSubmit={handleRegister} action="#" className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <label className="block text-gray-700 font-semibold mb-2">Full Name *</label>
               <input

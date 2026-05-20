@@ -45,7 +45,7 @@
 // }
 
 export interface Product {
-  id: number;  // Change from string to number
+  id: number | string;
   name: string;
   slug: string;
   category: string;

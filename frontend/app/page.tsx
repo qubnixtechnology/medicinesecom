@@ -1288,20 +1288,20 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:8080/api/products');
+        const response = await fetch('/api/products');
         const data = await response.json();
         
         if (data.success && data.data.products) {
           const adaptedProducts = data.data.products.map((p: any) => {
-            let productImages = [];
+            let productImages: string[] = [];
             if (p.images) {
               try {
                 let parsedImages = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
                 if (Array.isArray(parsedImages)) {
                   productImages = parsedImages.map((img: string) => {
                     if (img.startsWith('http')) return img;
-                    if (img.startsWith('/')) return `http://localhost:8080${img}`;
-                    return `http://localhost:8080/${img}`;
+                    if (img.startsWith('/')) return `${img}`;
+                    return `/${img}`;
                   });
                 }
               } catch(e) {
