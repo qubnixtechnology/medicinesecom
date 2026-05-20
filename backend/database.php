@@ -1,8 +1,8 @@
 ﻿<?php
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$dbname = 'glance_db';
+$user = 'u276796116_Medicine';
+$pass = 'Medicine1@1234';
+$dbname = 'u276796116_Medicine';
 
 try {
     $pdo = new PDO("mysql:host=$host", $user, $pass);

@@ -10,10 +10,10 @@ class Database {
       
     private function __construct() {
         $host = 'localhost';
-        $port = 3307;
-        $dbname = 'glance_db';
-        $user = 'root';
-        $pass = '';
+        $port = 3306;
+        $dbname = 'u276796116_Medicine';
+        $user = 'u276796116_Medicine';
+        $pass = 'Medicine1@1234';
         
         try {
             $this->connection = new PDO(

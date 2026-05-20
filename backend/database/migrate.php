@@ -1,9 +1,9 @@
 <?php
 $host = 'localhost';
-$dbname = 'glance_db';
-$user = 'root';
-$pass = '';
-$port = 3307;
+$dbname = 'u276796116_Medicine';
+$user = 'u276796116_Medicine';
+$pass = 'Medicine1@1234';
+$port = 3306;
 
 try {
     $pdo = new PDO("mysql:host=$host;port=$port", $user, $pass);

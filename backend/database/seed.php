@@ -1,9 +1,9 @@
 <?php
 $host = 'localhost';
-$dbname = 'glance_db';
-$user = 'root';
-$pass = '';
-$port = 3307;
+$dbname = 'u276796116_Medicine';
+$user = 'u276796116_Medicine';
+$pass = 'Medicine1@1234';
+$port = 3306;
 
 try {
     $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $pass);
@@ -13,7 +13,7 @@ try {
     $hashedPassword = password_hash('admin123', PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("
         INSERT IGNORE INTO users (name, email, password, role) 
-        VALUES ('Admin', 'admin@glance.com', ?, 'admin')
+        VALUES ('Admin', 'admin@medicine.com', ?, 'admin')
     ");
     $stmt->execute([$hashedPassword]);
     

@@ -51,42 +51,47 @@ $path = parse_url($request_uri, PHP_URL_PATH);
 $path = str_replace('/index.php', '', $path);
 $path = trim($path, '/');
 
+// Strip api/ prefix when deployed under /api/ subdirectory
+if (strpos($path, 'api/') === 0) {
+    $path = substr($path, 4);
+}
+
 // Route handling
 if ($path == 'test') {
     echo json_encode(['message' => 'API is working', 'path' => $path, 'method' => $request_method]);
     exit();
 }
-elseif ($path == 'api/auth/register' && $request_method == 'POST') {
+elseif ($path == 'auth/register' && $request_method == 'POST') {
     $controller = new App\Controllers\AuthController();
     $controller->register();
 }
-elseif ($path == 'api/auth/login' && $request_method == 'POST') {
+elseif ($path == 'auth/login' && $request_method == 'POST') {
     $controller = new App\Controllers\AuthController();
     $controller->login();
 }
-elseif ($path == 'api/products' && $request_method == 'GET') {
+elseif ($path == 'products' && $request_method == 'GET') {
     $controller = new App\Controllers\ProductController();
     $controller->index();
 } 
-elseif (preg_match('/^api\/products\/([a-zA-Z0-9_-]+)$/', $path, $matches) && $request_method == 'GET') {
+elseif (preg_match('/^products\/([a-zA-Z0-9_-]+)$/', $path, $matches) && $request_method == 'GET') {
     $controller = new App\Controllers\ProductController();
     $controller->show($matches[1]);
 }
-elseif ($path == 'api/categories' && $request_method == 'GET') {
+elseif ($path == 'categories' && $request_method == 'GET') {
     $controller = new App\Controllers\CategoryController();
     $controller->index();
 }
-elseif ($path == 'api/contact' && $request_method == 'POST') {
+elseif ($path == 'contact' && $request_method == 'POST') {
     $controller = new App\Controllers\ContactController();
     $controller->submit();
 }
-elseif ($path == 'api/orders' && $request_method == 'GET') {
+elseif ($path == 'orders' && $request_method == 'GET') {
     $auth = new App\Middleware\Auth();
     if (!$auth->handle()) exit();
     $controller = new App\Controllers\OrderController();
     $controller->index();
 }
-elseif ($path == 'api/orders' && $request_method == 'POST') {
+elseif ($path == 'orders' && $request_method == 'POST') {
     $auth = new App\Middleware\Auth();
     if (!$auth->handle()) exit();
     $controller = new App\Controllers\OrderController();
