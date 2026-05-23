@@ -1,138 +1,11 @@
-// 'use client';
 
-// import Link from 'next/link';
-// import { User, Package, Heart, LogOut, Settings, ShoppingBag } from 'lucide-react';
-
-// export default function AccountPage() {
-//   const isLoggedIn = false; 
-  
-//   if (!isLoggedIn) {
-//     return (
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-//         <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
-//           <div className="text-center mb-8">
-//             <div className="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-//               <User size={40} className="text-blue-600" />
-//             </div>
-//             <h1 className="text-2xl font-bold text-gray-800">My Account</h1>
-//             <p className="text-gray-600 mt-2">Login or sign up to access your account</p>
-//           </div>
-          
-//           <form className="space-y-4">
-//             <div>
-//               <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-//               <input
-//                 type="email"
-//                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-//                 placeholder="Enter your email"
-//               />
-//             </div>
-//             <div>
-//               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-//               <input
-//                 type="password"
-//                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-//                 placeholder="Enter your password"
-//               />
-//             </div>
-//             <button
-//               type="submit"
-//               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-//             >
-//               Login
-//             </button>
-//           </form>
-          
-//           <div className="mt-4 text-center">
-//             <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-//               Forgot Password?
-//             </Link>
-//           </div>
-          
-//           <div className="mt-6 pt-6 border-t text-center">
-//             <p className="text-sm text-gray-600">Don't have an account?</p>
-//             <Link
-//               href="/signup"
-//               className="text-blue-600 hover:underline text-sm font-medium"
-//             >
-//               Create New Account
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-  
-//   return (
-//     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//       <h1 className="text-3xl font-bold text-gray-800 mb-8">My Account</h1>
-      
-//       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-//         {/* Sidebar */}
-//         <div className="md:col-span-1">
-//           <div className="bg-white rounded-lg shadow p-4">
-//             <div className="text-center mb-4">
-//               <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
-//                 <User size={32} className="text-blue-600" />
-//               </div>
-//               <h3 className="font-semibold mt-2">John Doe</h3>
-//               <p className="text-sm text-gray-500">john@example.com</p>
-//             </div>
-            
-//             <div className="border-t pt-4 space-y-2">
-//               <Link href="/account" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-//                 <User size={18} /> Dashboard
-//               </Link>
-//               <Link href="/orders" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-//                 <Package size={18} /> Orders
-//               </Link>
-//               <Link href="/wishlist" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-//                 <Heart size={18} /> Wishlist
-//               </Link>
-//               <Link href="/settings" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-//                 <Settings size={18} /> Settings
-//               </Link>
-//               <button className="w-full flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg">
-//                 <LogOut size={18} /> Logout
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-        
-//         {/* Main Content */}
-//         <div className="md:col-span-3">
-//           <div className="bg-white rounded-lg shadow p-6">
-//             <h2 className="text-xl font-bold mb-4">Welcome Back!</h2>
-//             <p className="text-gray-600">From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
-            
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-//               <div className="border rounded-lg p-4">
-//                 <h3 className="font-semibold mb-2">Recent Orders</h3>
-//                 <p className="text-sm text-gray-500">You have no recent orders.</p>
-//                 <Link href="/products" className="text-blue-600 text-sm hover:underline mt-2 inline-block">
-//                   Shop Now →
-//                 </Link>
-//               </div>
-//               <div className="border rounded-lg p-4">
-//                 <h3 className="font-semibold mb-2">Account Details</h3>
-//                 <p className="text-sm text-gray-500">Manage your account information.</p>
-//                 <Link href="/settings" className="text-blue-600 text-sm hover:underline mt-2 inline-block">
-//                   Edit Profile →
-//                 </Link>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { api } from '@/lib/api';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -170,11 +43,7 @@ export default function AccountPage() {
     setError('');
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: loginEmail, password: loginPassword })
-      });
+      const response = await api.auth.login(loginEmail, loginPassword);
       
       const data = await response.json();
       
@@ -267,16 +136,12 @@ export default function AccountPage() {
   }
   
   try {
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: registerName,
-        email: registerEmail,
-        password: registerPassword,
-        phone: registerPhone,
-        role: 'customer'
-      })
+    const response = await api.auth.register({
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+      phone: registerPhone,
+      role: 'customer'
     });
     
     const data = await response.json();

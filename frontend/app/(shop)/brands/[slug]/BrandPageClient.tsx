@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ProductGrid from '@/components/product/ProductGrid';
 import { Product } from '@/types';
+import { api } from '@/lib/api';
 
 export default function BrandPageClient({ slug }: { slug: string }) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -12,7 +13,7 @@ export default function BrandPageClient({ slug }: { slug: string }) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('/api/products');
+        const response = await api.products.getAll();
         const data = await response.json();
         
         if (data.success && data.data.products) {

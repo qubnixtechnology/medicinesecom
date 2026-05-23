@@ -5,6 +5,7 @@ export function generateStaticParams() {
   return [{ slug: 'glance-healthcare' }];
 }
 
-export default function BrandPage({ params }: { params: { slug: string } }) {
-  return <BrandPageClient slug={params.slug} />;
+export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  return <BrandPageClient slug={resolvedParams.slug} />;
 }

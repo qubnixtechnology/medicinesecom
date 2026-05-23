@@ -9,11 +9,11 @@ class Database {
     private $connection;
       
     private function __construct() {
-        $host = 'localhost';
-        $port = 3306;
-        $dbname = 'u276796116_Medicine';
-        $user = 'u276796116_Medicine';
-        $pass = 'Medicine1@1234';
+        $host = $_ENV['DB_HOST'] ?? 'localhost';
+        $port = $_ENV['DB_PORT'] ?? 3306;
+        $dbname = $_ENV['DB_NAME'] ?? 'glance_db';
+        $user = $_ENV['DB_USER'] ?? 'root';
+        $pass = $_ENV['DB_PASS'] ?? '';
         
         try {
             $this->connection = new PDO(

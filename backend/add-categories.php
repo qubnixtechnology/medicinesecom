@@ -11,7 +11,7 @@ $categories = [
     ['Probiotics & Digestion', 'probiotics-digestion', 'Gut health and digestive enzymes'],
     ['Vitamin Supplements', 'vitamin-supplements', 'Essential vitamins and minerals'],
     ['Sleep Support', 'sleep-support', 'Natural sleep aids and relaxation'],
-    ['Women Reproductive Health', 'women-reproductive-health', 'Women health and fertility support'],
+    ['Women Health', 'women-health', 'Women health and fertility support'],
     ['Nutritional Supplements', 'nutritional-supplements', 'Complete nutrition for all ages']
 ];
 

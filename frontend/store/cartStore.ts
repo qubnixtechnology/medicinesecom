@@ -236,6 +236,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CartItem, Product } from '@/types';
+import { api } from '@/lib/api';
 
 interface CartStore {
   items: CartItem[];
@@ -320,14 +321,7 @@ export const useCartStore = create<CartStore>()(
         };
         
         try {
-          const response = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(orderData)
-          });
+          const response = await api.orders.create(orderData, token);
           
           const data = await response.json();
           

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ProductGrid from '@/components/product/ProductGrid';
 import { Product } from '@/types';
+import { api } from '@/lib/api';
 
 export default function ProductsClient() {
   const searchParams = useSearchParams();
@@ -21,7 +22,7 @@ export default function ProductsClient() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('/api/products');
+        const response = await api.products.getAll();
         const data = await response.json();
         
         if (data.success && data.data.products) {
@@ -88,7 +89,7 @@ export default function ProductsClient() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response = await fetch('/api/categories');
+        const response = await api.categories.getAll();
         const data = await response.json();
         if (data.success) {
           const categoriesWithCount = data.data.map((cat: any) => {
@@ -107,7 +108,7 @@ export default function ProductsClient() {
     } else {
       async function fetchBasicCategories() {
         try {
-          const response = await fetch('/api/categories');
+          const response = await api.categories.getAll();
           const data = await response.json();
           if (data.success) {
             setCategories(data.data);
